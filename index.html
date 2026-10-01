@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MAGA CLOTHING — Streetwear</title>
+<meta name="description" content="MAGA CLOTHING — premium streetwear.">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,Helvetica,sans-serif;background:#080808;color:#f5f5f5}
+a{text-decoration:none;color:inherit}
+header{position:sticky;top:0;z-index:20;background:rgba(8,8,8,.92);backdrop-filter:blur(12px);border-bottom:1px solid #242424}
+.nav{max-width:1200px;margin:auto;padding:18px 22px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-weight:1000;letter-spacing:4px;font-size:24px}
+.logo span{color:#d4af37}
+.navlinks{display:flex;gap:25px;font-size:13px;text-transform:uppercase;letter-spacing:1px}
+.cart{border:1px solid #444;padding:10px 14px;border-radius:5px;cursor:pointer}
+.hero{min-height:78vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:70px 20px;background:radial-gradient(circle at center,#242016 0,#0b0b0b 38%,#050505 75%)}
+.hero h1{font-size:clamp(64px,14vw,170px);letter-spacing:-6px;line-height:.85;font-weight:1000}
+.gold{color:#d4af37}
+.hero p{margin:30px auto;max-width:600px;color:#aaa;font-size:16px;line-height:1.6}
+.btn{display:inline-block;background:#d4af37;color:#080808;font-weight:900;padding:15px 28px;border-radius:4px;text-transform:uppercase;letter-spacing:1px}
+.section{max-width:1200px;margin:auto;padding:80px 22px}
+.title{display:flex;justify-content:space-between;align-items:end;margin-bottom:30px}
+.title h2{font-size:34px;text-transform:uppercase}
+.title p{color:#888}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.card{background:#111;border:1px solid #222;overflow:hidden}
+.photo{aspect-ratio:1/1.15;background:linear-gradient(145deg,#1e1e1e,#090909);display:flex;align-items:center;justify-content:center;position:relative}
+.photo .mock{font-size:28px;font-weight:1000;letter-spacing:3px;transform:rotate(-8deg);color:#ddd}
+.photo .tag{position:absolute;top:12px;left:12px;background:#d4af37;color:#000;font-size:10px;font-weight:900;padding:6px 8px}
+.info{padding:16px}
+.info h3{font-size:15px;margin-bottom:9px}
+.info p{color:#999;font-size:13px;margin-bottom:13px}
+.price{font-weight:900;font-size:17px}
+.add{float:right;border:1px solid #555;background:transparent;color:#fff;padding:7px 9px;cursor:pointer}
+.banner{margin-top:20px;border:1px solid #333;padding:40px;text-align:center;background:linear-gradient(120deg,#151515,#0a0a0a)}
+.banner h2{font-size:40px;margin-bottom:12px}
+.banner p{color:#999;margin-bottom:22px}
+footer{border-top:1px solid #222;padding:45px 22px;text-align:center;color:#777}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:50;align-items:flex-end;justify-content:center}
+.panel{background:#111;width:min(600px,100%);padding:25px;border:1px solid #333;border-radius:14px 14px 0 0}
+.panel h2{margin-bottom:15px}.item{padding:12px 0;border-bottom:1px solid #292929;display:flex;justify-content:space-between}
+.close{float:right;background:none;color:#fff;border:0;font-size:25px;cursor:pointer}
+@media(max-width:800px){.grid{grid-template-columns:repeat(2,1fr)}.navlinks{display:none}.hero{min-height:68vh}.section{padding:60px 16px}.title h2{font-size:27px}}
+@media(max-width:430px){.grid{gap:10px}.info{padding:12px}.hero h1{letter-spacing:-3px}.banner h2{font-size:30px}}
+</style>
+</head>
+<body>
+<header>
+<nav class="nav">
+<a class="logo" href="#">MAGA<span>.</span></a>
+<div class="navlinks"><a href="#shop">Shop</a><a href="#new">New Drop</a><a href="#about">About</a></div>
+<div class="cart" onclick="openCart()">🛒 <span id="count">0</span></div>
+</nav>
+</header>
+
+<section class="hero">
+<div>
+<div style="font-size:12px;letter-spacing:5px;color:#aaa;margin-bottom:20px">MAGA CLOTHING</div>
+<h1>WEAR<br><span class="gold">YOUR</span><br>POWER.</h1>
+<p>Premium streetwear для тех, кто выбирает свой путь. Чистый дизайн. Сильный характер. MAGA.</p>
+<a class="btn" href="#shop">Shop now</a>
+</div>
+</section>
+
+<section class="section" id="shop">
+<div class="title"><div><h2>Featured Drop</h2><p>Новая коллекция MAGA</p></div></div>
+<div class="grid" id="products"></div>
+<div class="banner" id="new">
+<h2>NEW DROP <span class="gold">01</span></h2>
+<p>Ограниченная первая коллекция. Добавь свои реальные фото и цены перед запуском.</p>
+<a class="btn" href="#shop">View collection</a>
+</div>
+</section>
+
+<section class="section" id="about">
+<div class="banner">
+<h2>MAGA <span class="gold">CLOTHING</span></h2>
+<p>Premium streetwear brand. Made for movement.</p>
+</div>
+</section>
+
+<footer>© 2026 MAGA CLOTHING — All rights reserved.</footer>
+
+<div class="modal" id="modal" onclick="if(event.target===this)closeCart()">
+<div class="panel">
+<button class="close" onclick="closeCart()">×</button>
+<h2>Your Cart</h2>
+<div id="cartItems"></div>
+<div style="display:flex;justify-content:space-between;margin-top:20px;font-weight:900"><span>Total</span><span id="total">0 TJS</span></div>
+<a class="btn" style="width:100%;text-align:center;margin-top:20px" href="https://t.me/" target="_blank">Order via Telegram</a>
+</div>
+</div>
+
+<script>
+const products=[
+{name:"MAGA Oversize T-Shirt",price:249,mark:"MAGA"},
+{name:"Gold Eagle T-Shirt",price:299,mark:"EAGLE"},
+{name:"MAGA Premium Hoodie",price:499,mark:"MAGA"},
+{name:"Black Signature Hoodie",price:549,mark:"MAGA"},
+{name:"MAGA Cargo Pants",price:449,mark:"CARGO"},
+{name:"Oversize Jacket",price:699,mark:"MAGA"},
+{name:"MAGA Signature Cap",price:199,mark:"MAGA"},
+{name:"MAGA Set",price:799,mark:"MAGA"}
+];
+let cart=[];
+const productsEl=document.getElementById('products');
+products.forEach((p,i)=>{
+productsEl.innerHTML+=`<article class="card">
+<div class="photo">${i<3?'<div class="tag">NEW</div>':''}<div class="mock">${p.mark}</div></div>
+<div class="info"><h3>${p.name}</h3><p>Premium streetwear</p><span class="price">${p.price} TJS</span><button class="add" onclick="add(${i})">+</button></div>
+</article>`;
+});
+function add(i){cart.push(products[i]);document.getElementById('count').textContent=cart.length}
+function openCart(){renderCart();document.getElementById('modal').style.display='flex'}
+function closeCart(){document.getElementById('modal').style.display='none'}
+function renderCart(){
+let el=document.getElementById('cartItems');
+if(!cart.length){el.innerHTML='<p style="color:#888;padding:20px 0">Корзина пуста.</p>'}
+else el.innerHTML=cart.map((p,i)=>`<div class="item"><span>${p.name}</span><span>${p.price} TJS <button onclick="cart.splice(${i},1);renderCart();document.getElementById('count').textContent=cart.length" style="margin-left:8px;background:none;border:0;color:#d4af37">×</button></span></div>`).join('');
+document.getElementById('total').textContent=cart.reduce((s,p)=>s+p.price,0)+' TJS';
+}
+</script>
+</body>
+</html>
